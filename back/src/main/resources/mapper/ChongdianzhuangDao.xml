@@ -20,6 +20,8 @@
         ,a.longitude as longitude
         ,a.latitude as latitude
         ,a.address as address
+        ,a.is_fast_charge as isFastCharge
+        ,a.is_free_parking as isFreeParking
     </sql>
     <select id="selectListView" parameterType="map" resultType="com.entity.view.ChongdianzhuangView" >
         SELECT
