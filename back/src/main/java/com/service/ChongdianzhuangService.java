@@ -3,6 +3,7 @@ package com.service;
 import com.baomidou.mybatisplus.service.IService;
 import com.utils.PageUtils;
 import com.entity.ChongdianzhuangEntity;
+import com.entity.view.ChongdianzhuangView;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.lang.Nullable;
@@ -30,6 +31,6 @@ public interface ChongdianzhuangService extends IService<ChongdianzhuangEntity> 
       * 查询所有可用充电桩
       * @return 可用充电桩列表
       */
-     List<ChongdianzhuangEntity> queryAvailableList();
+     List<ChongdianzhuangView> queryAvailableList();
 
 }

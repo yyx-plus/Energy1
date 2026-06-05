@@ -51,7 +51,7 @@ public class ChongdianzhuangServiceImpl extends ServiceImpl<ChongdianzhuangDao, 
      * 查询所有可用充电桩
      */
     @Override
-    public List<ChongdianzhuangEntity> queryAvailableList() {
+    public List<ChongdianzhuangView> queryAvailableList() {
         return baseMapper.selectAvailableList();
     }
 
