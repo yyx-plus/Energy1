@@ -379,19 +379,6 @@ public class ChongdianzhuangEntity<T> implements Serializable {
     public void setAddress(String address) {
         this.address = address;
     }
-    /**
-     * 是否快充
-     */
-    @ColumnInfo(comment="是否快充",type="tinyint(1)")
-    @TableField(value = "is_fast_charge")
-    private Integer isFastCharge;
-
-    /**
-     * 是否免费停车
-     */
-    @ColumnInfo(comment="是否免费停车",type="tinyint(1)")
-    @TableField(value = "is_free_parking")
-    private Integer isFreeParking;
 
     /**
      * 品牌
