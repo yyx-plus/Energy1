@@ -409,6 +409,13 @@
                     if (data && data.code === 0) {
                         _this.ruleForm = data.data;
                         _this.ruleForm.chongdianzhuangContent = _this.ruleForm.chongdianzhuangContent.replaceAll("src=\"upload/","src=\""+this.$base.url+"upload/");
+                        // 确保开关字段有默认值
+                        if (_this.ruleForm.isFastCharge === null || _this.ruleForm.isFastCharge === undefined) {
+                            _this.ruleForm.isFastCharge = 0;
+                        }
+                        if (_this.ruleForm.isFreeParking === null || _this.ruleForm.isFreeParking === undefined) {
+                            _this.ruleForm.isFreeParking = 0;
+                        }
                     } else {
                         _this.$message.error(data.msg);
                     }
