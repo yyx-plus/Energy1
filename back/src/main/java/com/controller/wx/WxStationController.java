@@ -115,8 +115,8 @@ public class WxStationController {
         wrapper.eq("chongdianzhuang_delete", 1);
 
         if (chongdianzhuangTypes != null) wrapper.eq("chongdianzhuang_types", chongdianzhuangTypes);
-        if (isFastCharge != null) wrapper.eq("is_fast_charge", isFastCharge);
-        if (isFreeParking != null) wrapper.eq("is_free_parking", isFreeParking);
+        if (isFastCharge != null && isFastCharge == 1) wrapper.eq("is_fast_charge", 1);
+        if (isFreeParking != null && isFreeParking == 1) wrapper.eq("is_free_parking", 1);
         if (keyword != null && !keyword.trim().isEmpty()) {
             wrapper.andNew().like("chongdianzhuang_name", keyword).or().like("address", keyword);
         }
