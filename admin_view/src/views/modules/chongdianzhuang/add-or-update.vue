@@ -125,6 +125,52 @@
                     </div>
                 </el-col>
 
+                <!-- 是否快充 -->
+                <el-col :span="12">
+                    <el-form-item class="switch" v-if="type!='info'" label="是否快充" prop="isFastCharge">
+                        <el-switch
+                            v-model="ruleForm.isFastCharge"
+                            :active-value="1"
+                            :inactive-value="0"
+                            :disabled="ro.isFastCharge"
+                            active-color="#13ce66"
+                            inactive-color="#ff4949"
+                            active-text="是"
+                            inactive-text="否">
+                        </el-switch>
+                    </el-form-item>
+                    <div v-else-if="type=='info'">
+                        <el-form-item class="input" label="是否快充" prop="isFastCharge">
+                            <el-tag :type="ruleForm.isFastCharge === 1 ? 'success' : 'info'">
+                                {{ ruleForm.isFastCharge === 1 ? '是' : '否' }}
+                            </el-tag>
+                        </el-form-item>
+                    </div>
+                </el-col>
+
+                <!-- 是否免费停车 -->
+                <el-col :span="12">
+                    <el-form-item class="switch" v-if="type!='info'" label="是否免费停车" prop="isFreeParking">
+                        <el-switch
+                            v-model="ruleForm.isFreeParking"
+                            :active-value="1"
+                            :inactive-value="0"
+                            :disabled="ro.isFreeParking"
+                            active-color="#13ce66"
+                            inactive-color="#ff4949"
+                            active-text="是"
+                            inactive-text="否">
+                        </el-switch>
+                    </el-form-item>
+                    <div v-else-if="type=='info'">
+                        <el-form-item class="input" label="是否免费停车" prop="isFreeParking">
+                            <el-tag :type="ruleForm.isFreeParking === 1 ? 'success' : 'info'">
+                                {{ ruleForm.isFreeParking === 1 ? '是' : '否' }}
+                            </el-tag>
+                        </el-form-item>
+                    </div>
+                </el-col>
+
                 <!-- 地图位置选择 -->
                 <el-col :span="24">
                     <el-form-item class="input" v-if="type!='info'" label="充电桩位置" prop="address">
@@ -206,6 +252,8 @@
                     address: '',
                     longitude: '',
                     latitude: '',
+                    isFastCharge: 0,
+                    isFreeParking: 0,
                 },
                 chongdianzhuangTypesOptions : [],
                 chongdianzhuangZhuangtaiTypesOptions : [],

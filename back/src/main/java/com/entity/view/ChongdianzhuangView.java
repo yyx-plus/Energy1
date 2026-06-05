@@ -39,10 +39,22 @@ public class ChongdianzhuangView extends ChongdianzhuangEntity implements Serial
 	private String shangxiaValue;
 
 	/**
-	 * 距离（公里）
-	 */
-	@ColumnInfo(comment="距离",type="decimal(10,2)")
-	private Double distance;
+     * 距离（公里）
+     */
+    @ColumnInfo(comment="距离",type="decimal(10,2)")
+    private Double distance;
+
+    /**
+     * 是否快充
+     */
+    @ColumnInfo(comment="是否快充",type="tinyint(1)")
+    private Integer isFastCharge;
+
+    /**
+     * 是否免费停车
+     */
+    @ColumnInfo(comment="是否免费停车",type="tinyint(1)")
+    private Integer isFreeParking;
 
 
 
@@ -114,6 +126,34 @@ public class ChongdianzhuangView extends ChongdianzhuangEntity implements Serial
 	 */
 	public void setDistance(Double distance) {
 		this.distance = distance;
+	}
+
+	/**
+	 * 获取： 是否快充
+	 */
+	public Integer getIsFastCharge() {
+		return isFastCharge;
+	}
+
+	/**
+	 * 设置： 是否快充
+	 */
+	public void setIsFastCharge(Integer isFastCharge) {
+		this.isFastCharge = isFastCharge;
+	}
+
+	/**
+	 * 获取： 是否免费停车
+	 */
+	public Integer getIsFreeParking() {
+		return isFreeParking;
+	}
+
+	/**
+	 * 设置： 是否免费停车
+	 */
+	public void setIsFreeParking(Integer isFreeParking) {
+		this.isFreeParking = isFreeParking;
 	}
 
 

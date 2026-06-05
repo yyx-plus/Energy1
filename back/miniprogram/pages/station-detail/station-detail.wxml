@@ -9,6 +9,10 @@
       <view class="navigate-btn" bindtap="onNavigate">🧭 导航</view>
     </view>
     <text class="station-addr">📍 {{station.address}}</text>
+    <view class="station-features">
+      <text wx:if="{{station.isFastCharge === 1}}" class="feature-tag feature-fast">⚡ 快充站</text>
+      <text wx:if="{{station.isFreeParking === 1}}" class="feature-tag feature-parking">🅿️ 免费停车</text>
+    </view>
     <view class="price-row">
       <text class="price-label">当前电价</text>
       <text class="price-value" wx:if="{{currentPrice}}">

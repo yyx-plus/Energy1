@@ -195,6 +195,28 @@
                     </el-table-column>
 
                     <el-table-column  :sortable="contents.tableSortable" :align="contents.tableAlign"
+                                   prop="isFastCharge"
+                                   header-align="center"
+                                   label="是否快充">
+                        <template slot-scope="scope">
+                            <el-tag :type="scope.row.isFastCharge === 1 ? 'success' : 'info'" size="small">
+                                {{scope.row.isFastCharge === 1 ? '是' : '否'}}
+                            </el-tag>
+                        </template>
+                    </el-table-column>
+
+                    <el-table-column  :sortable="contents.tableSortable" :align="contents.tableAlign"
+                                   prop="isFreeParking"
+                                   header-align="center"
+                                   label="是否免费停车">
+                        <template slot-scope="scope">
+                            <el-tag :type="scope.row.isFreeParking === 1 ? 'success' : 'info'" size="small">
+                                {{scope.row.isFreeParking === 1 ? '是' : '否'}}
+                            </el-tag>
+                        </template>
+                    </el-table-column>
+
+                    <el-table-column  :sortable="contents.tableSortable" :align="contents.tableAlign"
                                    prop="insertTime"
                                    header-align="center"
                                    label="录入时间">

@@ -7,7 +7,7 @@ Page({
     longitude: 121.473701,
     markers: [],
     stations: [],
-    filters: { chongdianzhuangTypes: null, isFreeParking: null, keyword: '' },
+    filters: { chongdianzhuangTypes: null, isFreeParking: null, isFastCharge: null, keyword: '' },
     stationTypes: [], // 充电桩类型字典
     selectedStation: null,
     showDetail: false,
@@ -82,6 +82,7 @@ Page({
     const params = { latitude, longitude, radius: 10 }
     if (filters.chongdianzhuangTypes !== null) params.chongdianzhuangTypes = filters.chongdianzhuangTypes
     if (filters.isFreeParking !== null) params.isFreeParking = filters.isFreeParking
+    if (filters.isFastCharge !== null) params.isFastCharge = filters.isFastCharge
     // 修复：正确判断 keyword 是否有效（不为 null/undefined 且 trim 后不为空）
     if (filters.keyword != null && filters.keyword.trim() !== '') {
       params.keyword = filters.keyword.trim()

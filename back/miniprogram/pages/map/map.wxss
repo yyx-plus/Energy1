@@ -30,8 +30,9 @@
 .tag { font-size: 22rpx; padding: 4rpx 14rpx; border-radius: 20rpx; }
 .tag-free { background: #e8f5e9; color: #4CAF50; }
 .tag-busy { background: #fce4ec; color: #e53935; }
-
-/* 空状态 */
+.tag-type { background: #e3f2fd; color: #1976D2; }
+.tag-fast { background: #fff3e0; color: #ff9800; }
+.tag-parking { background: #f3e5f5; color: #9c27b0; }
 .empty { text-align: center; padding: 60rpx 0; color: #bbb; font-size: 28rpx; }
 
 /* 地图点击弹出卡片 */
@@ -39,6 +40,7 @@
 .popup-close { position: absolute; top: 24rpx; right: 32rpx; font-size: 36rpx; color: #999; }
 .popup-name { font-size: 34rpx; font-weight: bold; display: block; margin-bottom: 10rpx; }
 .popup-addr { font-size: 26rpx; color: #999; display: block; margin-bottom: 16rpx; }
+.popup-tags { display: flex; gap: 16rpx; margin-bottom: 16rpx; }
 .popup-row { display: flex; align-items: center; gap: 20rpx; margin-bottom: 24rpx; }
 .popup-price { color: #FF9800; font-size: 28rpx; }
 .popup-btn { width: 100%; background: #4CAF50; color: #fff; border-radius: 50rpx; font-size: 30rpx; }

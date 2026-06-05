@@ -227,6 +227,8 @@ public class WxStationController {
         item.put("stationTypeName", getStationTypeMap().getOrDefault(s.getChongdianzhuangTypes(), ""));
         item.put("distance", Math.round(dist * 10.0) / 10.0);
         item.put("distanceText", dist < 1 ? (int)(dist * 1000) + "m" : String.format("%.1fkm", dist));
+        item.put("isFastCharge", s.getIsFastCharge() != null ? s.getIsFastCharge() : 0);
+        item.put("isFreeParking", s.getIsFreeParking() != null ? s.getIsFreeParking() : 0);
 
         List<ChargingGunEntity> guns = chargingGunService.getByStationId(s.getId());
         long freeCount = guns.stream().filter(g -> g.getStatus() != null && g.getStatus() == 1
