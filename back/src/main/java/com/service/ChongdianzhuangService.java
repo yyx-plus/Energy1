@@ -19,4 +19,17 @@ public interface ChongdianzhuangService extends IService<ChongdianzhuangEntity> 
     */
      PageUtils queryPage(Map<String, Object> params);
 
+     /**
+      * 增强查询：支持距离排序和实时状态筛选
+      * @param params 查询参数
+      * @return 带分页的查询结果
+      */
+     PageUtils queryPageEnhanced(Map<String, Object> params);
+
+     /**
+      * 查询所有可用充电桩
+      * @return 可用充电桩列表
+      */
+     List<ChongdianzhuangEntity> queryAvailableList();
+
 }

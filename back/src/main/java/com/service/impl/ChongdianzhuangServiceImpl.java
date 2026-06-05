@@ -31,11 +31,28 @@ import com.entity.view.ChongdianzhuangView;
 public class ChongdianzhuangServiceImpl extends ServiceImpl<ChongdianzhuangDao, ChongdianzhuangEntity> implements ChongdianzhuangService {
 
     @Override
-    public PageUtils queryPage(Map<String,Object> params) {
+    public PageUtils queryPage(Map<String, Object> params) {
         Page<ChongdianzhuangView> page =new Query<ChongdianzhuangView>(params).getPage();
         page.setRecords(baseMapper.selectListView(page,params));
         return new PageUtils(page);
     }
 
+    /**
+     * 增强查询：支持距离排序和实时状态筛选
+     */
+    @Override
+    public PageUtils queryPageEnhanced(Map<String, Object> params) {
+        Page<ChongdianzhuangView> page = new Query<ChongdianzhuangView>(params).getPage();
+        page.setRecords(baseMapper.selectListViewEnhanced(page, params));
+        return new PageUtils(page);
+    }
+
+    /**
+     * 查询所有可用充电桩
+     */
+    @Override
+    public List<ChongdianzhuangEntity> queryAvailableList() {
+        return baseMapper.selectAvailableList();
+    }
 
 }

@@ -38,6 +38,12 @@ public class ChongdianzhuangView extends ChongdianzhuangEntity implements Serial
 	@ColumnInfo(comment="是否上架的字典表值",type="varchar(200)")
 	private String shangxiaValue;
 
+	/**
+	 * 距离（公里）
+	 */
+	@ColumnInfo(comment="距离",type="decimal(10,2)")
+	private Double distance;
+
 
 
 
@@ -90,10 +96,24 @@ public class ChongdianzhuangView extends ChongdianzhuangEntity implements Serial
 		return shangxiaValue;
 	}
 	/**
-	* 设置： 是否上架的值
-	*/
+	 * 设置： 是否上架的值
+	 */
 	public void setShangxiaValue(String shangxiaValue) {
 		this.shangxiaValue = shangxiaValue;
+	}
+
+	/**
+	 * 获取： 距离（公里）
+	 */
+	public Double getDistance() {
+		return distance;
+	}
+
+	/**
+	 * 设置： 距离（公里）
+	 */
+	public void setDistance(Double distance) {
+		this.distance = distance;
 	}
 
 

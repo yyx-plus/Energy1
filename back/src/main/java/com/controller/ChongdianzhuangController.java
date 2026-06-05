@@ -401,5 +401,69 @@ public class ChongdianzhuangController {
         }
     }
 
+    /**
+     * 增强查询接口 - 支持距离排序和实时状态筛选
+     */
+    @IgnoreAuth
+    @RequestMapping("/listEnhanced")
+    public R listEnhanced(@RequestParam Map<String, Object> params, HttpServletRequest request) {
+        logger.debug("listEnhanced方法:,,Controller:{},,params:{}", this.getClass().getName(), JSONObject.toJSONString(params));
+
+        CommonUtil.checkMap(params);
+        PageUtils page = chongdianzhuangService.queryPageEnhanced(params);
+
+        // 字典表数据转换
+        List<ChongdianzhuangView> list = (List<ChongdianzhuangView>) page.getList();
+        for (ChongdianzhuangView c : list)
+            dictionaryService.dictionaryConvert(c, request); // 修改对应字典表字段
+
+        return R.ok().put("data", page);
+    }
+
+    /**
+     * 查询所有可用充电桩（实时状态）
+     */
+    @IgnoreAuth
+    @RequestMapping("/listAvailable")
+    public R listAvailable(@RequestParam Map<String, Object> params, HttpServletRequest request) {
+        logger.debug("listAvailable方法:,,Controller:{},,params:{}", this.getClass().getName(), JSONObject.toJSONString(params));
+
+        CommonUtil.checkMap(params);
+        PageUtils page = chongdianzhuangService.queryPage(params);
+        params.put("onlyAvailable", true);
+        page = chongdianzhuangService.queryPageEnhanced(params);
+
+        // 字典表数据转换
+        List<ChongdianzhuangView> list = (List<ChongdianzhuangView>) page.getList();
+        for (ChongdianzhuangView c : list)
+            dictionaryService.dictionaryConvert(c, request);
+
+        return R.ok().put("data", page);
+    }
+
+    /**
+     * 获取当前位置附近的充电桩
+     */
+    @IgnoreAuth
+    @RequestMapping("/listNearby")
+    public R listNearby(@RequestParam Map<String, Object> params, HttpServletRequest request) {
+        logger.debug("listNearby方法:,,Controller:{},,params:{}", this.getClass().getName(), JSONObject.toJSONString(params));
+
+        // 设置默认搜索范围为10公里
+        if (!params.containsKey("searchRadius")) {
+            params.put("searchRadius", 10);
+        }
+
+        CommonUtil.checkMap(params);
+        PageUtils page = chongdianzhuangService.queryPageEnhanced(params);
+
+        // 字典表数据转换
+        List<ChongdianzhuangView> list = (List<ChongdianzhuangView>) page.getList();
+        for (ChongdianzhuangView c : list)
+            dictionaryService.dictionaryConvert(c, request);
+
+        return R.ok().put("data", page);
+    }
+
 }
 
