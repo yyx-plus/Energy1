@@ -82,11 +82,22 @@ Page({
     const params = { latitude, longitude, radius: 10 }
     if (filters.chongdianzhuangTypes !== null) params.chongdianzhuangTypes = filters.chongdianzhuangTypes
     if (filters.isFreeParking !== null) params.isFreeParking = filters.isFreeParking
-    if (filters.keyword && filters.keyword.trim() !== '') params.keyword = filters.keyword
+    // 修复：正确判断 keyword 是否有效（不为 null/undefined 且 trim 后不为空）
+    if (filters.keyword != null && filters.keyword.trim() !== '') {
+      params.keyword = filters.keyword.trim()
+    }
+    wx.showLoading({ title: '搜索中...', mask: true })
     try {
       const res = await get('/wx/station/list', params, false)
       this.setData({ stations: (res.data && res.data.list) || [] })
-    } catch (e) {}
+      wx.hideLoading()
+      if (this.data.stations.length === 0) {
+        wx.showToast({ title: '未找到匹配的充电桩', icon: 'none' })
+      }
+    } catch (e) {
+      wx.hideLoading()
+      wx.showToast({ title: '搜索失败，请重试', icon: 'none' })
+    }
   },
 
   onMarkerTap(e) {
