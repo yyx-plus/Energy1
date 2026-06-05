@@ -1,0 +1,48 @@
+# 依赖
+node_modules/
+**/node_modules/
+
+# Java 构建产物
+**/target/
+*.class
+*.jar
+*.war
+*.ear
+
+# 前端构建产物
+**/dist/
+**/build/
+
+# IDE
+.idea/
+*.iml
+.vscode/
+*.swp
+*.swo
+
+# 日志与缓存
+*.log
+**/.cache/
+**/.sass-cache/
+**/.eslintcache
+
+# 系统文件
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# 本地环境
+.env
+.env.local
+.env.*.local
+
+# 微信小程序开发者本地配置
+**/project.private.config.json
+
+# 非必要大文档
+基于微信小程序新能源充电站查询系统设计与实现.md
+
+# 后端内嵌管理端构建产物，与 admin_view 重复；部署前在 admin_view 执行 npm run build 后拷贝到此处
+back/src/main/resources/admin/admin/
+
+TASK_LIST.md

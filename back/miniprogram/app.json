@@ -1,0 +1,68 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/map/map",
+    "pages/station-detail/station-detail",
+    "pages/reserve/reserve",
+    "pages/charging/charging",
+    "pages/pay/pay",
+    "pages/route-plan/route-plan",
+    "pages/feedback/feedback",
+    "pages/profile/profile",
+    "pages/order-list/order-list",
+    "pages/order-detail/order-detail",
+    "pages/integral/integral",
+    "pages/login/login",
+    "pages/recharge/recharge",
+    "pages/chat/chat"
+  ],
+  "tabBar": {
+    "color": "#999999",
+    "selectedColor": "#4CAF50",
+    "backgroundColor": "#ffffff",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页",
+        "iconPath": "assets/icons/home.png",
+        "selectedIconPath": "assets/icons/home-active.png"
+      },
+      {
+        "pagePath": "pages/map/map",
+        "text": "找桩",
+        "iconPath": "assets/icons/map.png",
+        "selectedIconPath": "assets/icons/map-active.png"
+      },
+      {
+        "pagePath": "pages/route-plan/route-plan",
+        "text": "补能",
+        "iconPath": "assets/icons/route.png",
+        "selectedIconPath": "assets/icons/route-active.png"
+      },
+      {
+        "pagePath": "pages/profile/profile",
+        "text": "我的",
+        "iconPath": "assets/icons/profile.png",
+        "selectedIconPath": "assets/icons/profile-active.png"
+      }
+    ]
+  },
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#4CAF50",
+    "navigationBarTitleText": "新能源充电",
+    "navigationBarTextStyle": "white"
+  },
+  "networkTimeout": {
+    "request": 10000,
+    "connectSocket": 10000
+  },
+  "permission": {
+    "scope.userLocation": {
+      "desc": "用于显示附近充电站和导航"
+    }
+  },
+  "requiredPrivateInfos": ["chooseLocation", "getLocation"],
+  "sitemapLocation": "sitemap.json"
+}

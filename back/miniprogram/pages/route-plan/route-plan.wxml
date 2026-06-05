@@ -1,0 +1,40 @@
+<view class="route-page container">
+  <view class="card">
+    <button class="input-row dest-btn" bindtap="onChooseEnd">
+      <text class="input-label">目的地</text>
+      <text class="input-val {{endName ? '' : 'placeholder'}}">{{endName || '点击选择目的地'}}</text>
+    </button>
+    <view class="input-row">
+      <text class="input-label">当前续航</text>
+      <view class="range-input">
+        <input type="number" value="{{remainRange}}" bindinput="onRangeInput" class="num-input"/>
+        <text>km</text>
+      </view>
+    </view>
+  </view>
+
+  <button class="btn-primary" bindtap="onPlan" loading="{{loading}}">开始规划</button>
+
+  <view wx:if="{{result}}" class="result-area">
+    <view class="result-summary card">
+      <text>总距离 {{result.totalDistance}} km</text>
+      <text wx:if="{{result.needCharge}}" class="need-charge">⚡ 需要途中充电</text>
+      <text wx:else class="no-charge">✅ 续航充足，无需充电</text>
+    </view>
+
+    <view class="section-title">推荐充电站</view>
+    <view wx:for="{{result.stations}}" wx:key="id" class="station-card card" bindtap="goStation" data-id="{{item.id}}">
+      <view class="s-header">
+        <text class="s-name">{{item.name}}</text>
+        <text class="s-free tag tag-free">空闲{{item.freeGunCount}}</text>
+      </view>
+      <text class="s-addr">{{item.address}}</text>
+      <view class="s-stats">
+        <text>距出发地 {{item.distFromStart}}km</text>
+        <text>绕路 {{item.detourKm}}km</text>
+        <text>¥{{item.price}}/h</text>
+      </view>
+    </view>
+    <view wx:if="{{result.stations.length === 0}}" class="empty">续航范围内暂无合适充电站</view>
+  </view>
+</view>

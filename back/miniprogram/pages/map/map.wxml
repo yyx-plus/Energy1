@@ -1,0 +1,67 @@
+<view class="map-page">
+  <!-- 搜索栏 -->
+  <view class="search-bar">
+    <input class="search-input" placeholder="搜索充电站" value="{{filters.keyword}}" bindinput="onKeywordInput" bindconfirm="onSearch"/>
+    <view class="search-btn" bindtap="onSearch">搜索</view>
+  </view>
+
+  <!-- 筛选标签 -->
+  <view class="filter-bar">
+    <view
+      wx:for="{{stationTypes}}"
+      wx:key="codeIndex"
+      class="filter-tag {{filters.chongdianzhuangTypes === item.codeIndex ? 'active' : ''}}"
+      bindtap="onFilterChange"
+      data-key="chongdianzhuangTypes"
+      data-val="{{item.codeIndex}}"
+    >{{item.indexName}}</view>
+    <view class="filter-tag {{filters.isFreeParking === 1 ? 'active' : ''}}" bindtap="onFilterChange" data-key="isFreeParking" data-val="1">🅿️ 免费停车</view>
+  </view>
+
+  <!-- 地图 -->
+  <map
+    id="map"
+    class="map-view"
+    latitude="{{latitude}}"
+    longitude="{{longitude}}"
+    scale="{{scale}}"
+    markers="{{markers}}"
+    show-location
+    bindmarkertap="onMarkerTap"
+  />
+
+  <!-- 站点列表 -->
+  <scroll-view class="station-list" scroll-y>
+    <view class="list-header">附近充电站（{{stations.length}}个）</view>
+    <view wx:for="{{stations}}" wx:key="id" class="station-item" bindtap="goDetail" data-id="{{item.id}}">
+      <view class="station-info">
+        <text class="station-name">{{item.name}}</text>
+        <text class="station-addr">{{item.address}}</text>
+        <view class="station-tags">
+          <text class="tag tag-type">{{item.stationTypeName}}</text>
+          <text class="tag {{item.freeGunCount > 0 ? 'tag-free' : 'tag-busy'}}">
+            空闲 {{item.freeGunCount}}/{{item.totalGunCount}}
+          </text>
+          <text class="price-text">¥{{item.price}}/小时</text>
+        </view>
+      </view>
+      <view class="station-dist">
+        <text>{{item.distanceText}}</text>
+        <text class="arrow">›</text>
+      </view>
+    </view>
+    <view wx:if="{{stations.length === 0}}" class="empty">附近暂无充电站</view>
+  </scroll-view>
+
+  <!-- 地图点击弹出卡片 -->
+  <view class="station-popup" wx:if="{{showDetail && selectedStation}}">
+    <view class="popup-close" bindtap="closeDetail">✕</view>
+    <text class="popup-name">{{selectedStation.name}}</text>
+    <text class="popup-addr">{{selectedStation.address}}</text>
+    <view class="popup-row">
+      <text class="tag {{selectedStation.freeGunCount > 0 ? 'tag-free' : 'tag-busy'}}">空闲 {{selectedStation.freeGunCount}}/{{selectedStation.totalGunCount}}</text>
+      <text class="popup-price">¥{{selectedStation.price}}/小时</text>
+    </view>
+    <button class="btn-primary popup-btn" bindtap="goDetail">查看详情</button>
+  </view>
+</view>

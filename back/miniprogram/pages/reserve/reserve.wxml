@@ -1,0 +1,10 @@
+<view class="reserve-page container">
+  <view class="card">
+    <view class="info-row"><text class="label">充电站</text><text>站点ID: {{stationId}}</text></view>
+    <view class="info-row"><text class="label">枪头</text><text>枪头ID: {{gunId}}</text></view>
+    <view class="info-row"><text class="label">预约时间</text><text>{{reserveTime}}</text></view>
+    <view class="info-row"><text class="label">锁桩时长</text><text>15分钟（超时自动取消）</text></view>
+  </view>
+  <view class="tip card">⏰ 预约成功后请在15分钟内到达并开始充电，超时将自动取消预约。</view>
+  <button class="btn-primary" bindtap="onConfirmReserve" loading="{{loading}}">确认预约</button>
+</view>

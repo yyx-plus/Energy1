@@ -1,0 +1,13 @@
+<view class="recharge-page container">
+  <view class="card">
+    <text class="title">充值余额</text>
+    <view class="presets">
+      <view wx:for="{{presets}}" wx:key="index" class="preset {{amount==item?'active':''}}" bindtap="selectPreset" data-val="{{item}}">¥{{item}}</view>
+    </view>
+    <view class="custom-input">
+      <text>¥</text>
+      <input type="digit" placeholder="自定义金额" value="{{amount}}" bindinput="onAmountInput"/>
+    </view>
+  </view>
+  <button class="btn-primary" bindtap="onRecharge" loading="{{loading}}">确认充值</button>
+</view>

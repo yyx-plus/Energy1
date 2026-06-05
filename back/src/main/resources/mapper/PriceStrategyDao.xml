@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.PriceStrategyDao">
+
+    <select id="selectByStationId" resultType="com.entity.PriceStrategyEntity">
+        SELECT id, station_id as stationId, strategy_name as strategyName,
+               period_type as periodType, start_hour as startHour, end_hour as endHour,
+               electric_price as electricPrice, service_price as servicePrice,
+               is_active as isActive, create_time as createTime
+        FROM price_strategy
+        WHERE (station_id = #{stationId} OR station_id IS NULL)
+          AND is_active = 1
+        ORDER BY period_type, start_hour
+    </select>
+
+</mapper>

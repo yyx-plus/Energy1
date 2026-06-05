@@ -1,0 +1,6 @@
+.title { font-size: 32rpx; font-weight: bold; display: block; margin-bottom: 30rpx; }
+.presets { display: flex; gap: 20rpx; flex-wrap: wrap; margin-bottom: 30rpx; }
+.preset { flex: 1; min-width: 140rpx; text-align: center; padding: 20rpx; border: 2rpx solid #ddd; border-radius: 12rpx; font-size: 30rpx; }
+.preset.active { border-color: #4CAF50; color: #4CAF50; background: #e8f5e9; }
+.custom-input { display: flex; align-items: center; border-bottom: 2rpx solid #4CAF50; padding: 10rpx 0; font-size: 36rpx; gap: 10rpx; }
+.custom-input input { flex: 1; font-size: 36rpx; }

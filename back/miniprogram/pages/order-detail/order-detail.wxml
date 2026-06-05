@@ -1,0 +1,21 @@
+<view class="detail-page container" wx:if="{{order}}">
+  <view class="card">
+    <view class="status-row">
+      <text class="status-text" style="color:{{order.statusInfo.color}}">{{order.statusInfo.name}}</text>
+      <text wx:if="{{order.status === 101 && countdown > 0}}" class="countdown">{{countdownText}} 后过期</text>
+    </view>
+    <view class="info-row"><text class="label">充电站</text><text>{{order.stationName}}</text></view>
+    <view class="info-row"><text class="label">预约时间</text><text>{{order.orderTime}}</text></view>
+    <view class="info-row" wx:if="{{order.startTime}}"><text class="label">开始时间</text><text>{{order.startTime}}</text></view>
+    <view class="info-row" wx:if="{{order.endTime}}"><text class="label">结束时间</text><text>{{order.endTime}}</text></view>
+    <view class="info-row" wx:if="{{order.chargeKwh}}"><text class="label">充电度数</text><text>{{order.chargeKwh}} kWh</text></view>
+    <view class="info-row" wx:if="{{order.electricFee}}"><text class="label">电费</text><text>¥{{order.electricFee}}</text></view>
+    <view class="info-row" wx:if="{{order.serviceFee}}"><text class="label">服务费</text><text>¥{{order.serviceFee}}</text></view>
+    <view class="info-row total" wx:if="{{order.totalFee}}"><text class="label">合计</text><text class="total-price">¥{{order.totalFee}}</text></view>
+  </view>
+
+  <button wx:if="{{order.status === 101}}" class="btn-primary" bindtap="goCharging">开始充电</button>
+  <button wx:if="{{order.status === 101}}" class="btn-outline cancel-btn" bindtap="onCancel">取消预约</button>
+  <button wx:if="{{order.status === 103}}" class="btn-primary charging-btn" bindtap="goChargingActive">查看充电详情</button>
+  <button wx:if="{{order.status === 104}}" class="btn-primary" bindtap="goPay">去支付</button>
+</view>

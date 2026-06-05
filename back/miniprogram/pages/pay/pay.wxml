@@ -1,0 +1,11 @@
+<view class="pay-page container" wx:if="{{order}}">
+  <view class="card">
+    <view class="pay-title">充电费用明细</view>
+    <view class="fee-row"><text>充电度数</text><text>{{order.chargeKwh || 0}} kWh</text></view>
+    <view class="fee-row"><text>电费</text><text>¥{{order.electricFee || 0}}</text></view>
+    <view class="fee-row"><text>服务费</text><text>¥{{order.serviceFee || 0}}</text></view>
+    <view class="divider"/>
+    <view class="fee-row total"><text>合计</text><text class="total-price">¥{{order.totalFee || 0}}</text></view>
+  </view>
+  <button class="btn-primary" bindtap="onPay" loading="{{loading}}">余额支付</button>
+</view>

@@ -1,0 +1,9 @@
+.total-card { background: linear-gradient(135deg,#4CAF50,#2E7D32); padding: 60rpx; text-align: center; }
+.total-num { font-size: 80rpx; font-weight: bold; color: #fff; display: block; }
+.total-label { color: rgba(255,255,255,0.8); font-size: 28rpx; }
+.item { display: flex; justify-content: space-between; align-items: center; margin: 12rpx 20rpx; }
+.source { font-size: 28rpx; display: block; }
+.time { font-size: 22rpx; color: #999; }
+.integral { font-size: 36rpx; font-weight: bold; }
+.plus { color: #4CAF50; }
+.minus { color: #F44336; }

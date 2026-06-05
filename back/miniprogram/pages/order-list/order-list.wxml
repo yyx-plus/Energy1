@@ -1,0 +1,19 @@
+<view class="order-list-page">
+  <view class="tabs">
+    <view wx:for="{{tabs}}" wx:key="index" class="tab {{activeTab === index ? 'active' : ''}}" bindtap="onTabChange" data-idx="{{index}}">{{item}}</view>
+  </view>
+  <scroll-view scroll-y class="list">
+    <view wx:for="{{orders}}" wx:key="id" class="order-card card" bindtap="goDetail" data-id="{{item.id}}">
+      <view class="order-header">
+        <text class="station-name">{{item.stationName || '充电站'}}</text>
+        <text class="status" style="color:{{item.statusInfo.color}}">{{item.statusInfo.name}}</text>
+      </view>
+      <view class="order-info">
+        <text>充电 {{item.chargeKwh || '-'}} kWh</text>
+        <text>¥{{item.totalFee || 0}}</text>
+      </view>
+      <text class="order-time">{{item.createTime}}</text>
+    </view>
+    <view wx:if="{{orders.length === 0}}" class="empty">暂无订单</view>
+  </scroll-view>
+</view>

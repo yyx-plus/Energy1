@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.ChargingGunDao">
+
+    <select id="selectByStationId" resultType="com.entity.ChargingGunEntity">
+        SELECT id, station_id as stationId, gun_no as gunNo, gun_name as gunName,
+               gun_type as gunType, power_kw as powerKw, status,
+               create_time as createTime, update_time as updateTime
+        FROM charging_gun
+        WHERE station_id = #{stationId}
+        ORDER BY gun_no
+    </select>
+
+</mapper>

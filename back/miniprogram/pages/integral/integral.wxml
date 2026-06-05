@@ -1,0 +1,13 @@
+<view class="integral-page">
+  <view class="total-card"><text class="total-num">{{total}}</text><text class="total-label">当前积分</text></view>
+  <view class="container">
+    <view wx:for="{{list}}" wx:key="id" class="item card">
+      <view class="item-left">
+        <text class="source">{{item.source}}</text>
+        <text class="time">{{item.createTime}}</text>
+      </view>
+      <text class="integral {{item.integral > 0 ? 'plus' : 'minus'}}">{{item.integral > 0 ? '+' : ''}}{{item.integral}}</text>
+    </view>
+    <view wx:if="{{list.length===0}}" class="empty">暂无积分记录</view>
+  </view>
+</view>

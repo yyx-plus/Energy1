@@ -1,0 +1,11 @@
+.login-page { min-height: 100vh; background: linear-gradient(135deg, #4CAF50, #2E7D32); display: flex; flex-direction: column; align-items: center; padding-top: 120rpx; }
+.logo-area { text-align: center; margin-bottom: 80rpx; }
+.logo { width: 160rpx; height: 160rpx; border-radius: 40rpx; }
+.app-name { display: block; color: #fff; font-size: 48rpx; font-weight: bold; margin-top: 20rpx; }
+.app-desc { display: block; color: rgba(255,255,255,0.8); font-size: 28rpx; margin-top: 10rpx; }
+.form-area { background: #fff; border-radius: 32rpx; padding: 48rpx 40rpx; width: 640rpx; }
+.input-item { border-bottom: 1rpx solid #eee; padding: 20rpx 0; margin-bottom: 20rpx; }
+.input-item input { font-size: 30rpx; width: 100%; }
+.login-btn { margin-top: 40rpx; width: 100%; }
+.btn-wx { margin-top: 20rpx; background: #07C160; color: #fff; border-radius: 50rpx; padding: 20rpx 0; text-align: center; font-size: 30rpx; border: none; width: 100%; }
+.register-link { text-align: center; color: #4CAF50; margin-top: 30rpx; font-size: 28rpx; }

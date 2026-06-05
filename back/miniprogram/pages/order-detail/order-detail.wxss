@@ -1,0 +1,9 @@
+.status-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20rpx; }
+.status-text { font-size: 36rpx; font-weight: bold; }
+.countdown { font-size: 24rpx; color: #FF9800; }
+.info-row { display: flex; justify-content: space-between; padding: 16rpx 0; border-bottom: 1rpx solid #f0f0f0; font-size: 28rpx; }
+.info-row:last-child { border-bottom: none; }
+.label { color: #999; }
+.info-row.total { font-weight: bold; }
+.total-price { color: #F44336; font-size: 32rpx; }
+.cancel-btn { margin-top: 16rpx; }

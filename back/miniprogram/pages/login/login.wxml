@@ -1,0 +1,20 @@
+<view class="login-page">
+  <view class="logo-area">
+    <image class="logo" src="/assets/icons/logo.png" mode="aspectFit"/>
+    <text class="app-name">新能源充电</text>
+    <text class="app-desc">智能找桩 · 便捷充电</text>
+  </view>
+
+  <view class="form-area">
+    <view class="input-item">
+      <input placeholder="请输入账号" value="{{username}}" bindinput="onUsernameInput" type="text"/>
+    </view>
+    <view class="input-item">
+      <input placeholder="请输入密码" value="{{password}}" bindinput="onPasswordInput" password/>
+    </view>
+
+    <button class="btn-primary login-btn" bindtap="onLogin" loading="{{loading}}">登录</button>
+    <button class="btn-wx" bindtap="onWxLogin">微信一键登录</button>
+    <view class="register-link" bindtap="goRegister">没有账号？立即注册</view>
+  </view>
+</view>

@@ -1,0 +1,65 @@
+<view class="detail-page" wx:if="{{station}}">
+  <!-- 头图 -->
+  <image class="station-photo" src="{{station.photo}}" mode="aspectFill"/>
+
+  <!-- 基本信息 -->
+  <view class="card info-card">
+    <view class="info-header">
+      <text class="station-name">{{station.name}}</text>
+      <view class="navigate-btn" bindtap="onNavigate">🧭 导航</view>
+    </view>
+    <text class="station-addr">📍 {{station.address}}</text>
+    <view class="price-row">
+      <text class="price-label">当前电价</text>
+      <text class="price-value" wx:if="{{currentPrice}}">
+        ¥{{currentPrice.electricPrice}}/kWh + 服务费¥{{currentPrice.servicePrice}}/kWh
+      </text>
+      <text class="price-value" wx:else>¥{{station.price}}/小时</text>
+    </view>
+  </view>
+
+  <!-- 枪头状态 -->
+  <view class="section-title">充电枪状态</view>
+  <view class="card">
+    <view wx:for="{{guns}}" wx:key="id" class="gun-item">
+      <view class="gun-info">
+        <text class="gun-name">{{item.gunName || item.gunNo}}</text>
+        <text class="gun-power">{{item.powerKw}}kW</text>
+      </view>
+      <view class="gun-right">
+        <text class="tag {{item.statusInfo.cls}}">{{item.statusInfo.name}}</text>
+        <button wx:if="{{item.status === 1}}" class="reserve-btn" bindtap="onReserve" data-gunid="{{item.id}}">预约</button>
+      </view>
+    </view>
+    <view wx:if="{{guns.length === 0}}" class="empty">暂无枪头信息</view>
+  </view>
+
+  <!-- 24小时电价曲线 -->
+  <view class="section-title">24小时电价</view>
+  <view class="card price-chart-card">
+    <scroll-view scroll-x class="price-scroll">
+      <view class="price-bars">
+        <view wx:for="{{priceCurve}}" wx:key="hour" class="price-bar-item">
+          <view class="bar-wrap">
+            <view class="bar period-{{item.periodType}}" style="height: {{item.totalPrice * 60}}rpx;"/>
+          </view>
+          <text class="bar-price">{{item.totalPrice}}</text>
+          <text class="bar-hour">{{item.hour}}</text>
+        </view>
+      </view>
+    </scroll-view>
+    <view class="price-legend">
+      <view class="legend-item"><view class="legend-dot period-1"/><text>尖</text></view>
+      <view class="legend-item"><view class="legend-dot period-2"/><text>峰</text></view>
+      <view class="legend-item"><view class="legend-dot period-3"/><text>平</text></view>
+      <view class="legend-item"><view class="legend-dot period-4"/><text>谷</text></view>
+    </view>
+  </view>
+
+  <!-- 介绍 -->
+  <view class="card" wx:if="{{station.content}}">
+    <view class="section-title-inline">站点介绍</view>
+    <rich-text nodes="{{station.content}}"/>
+  </view>
+</view>
+<view wx:else class="empty">加载中...</view>

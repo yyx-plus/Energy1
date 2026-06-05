@@ -1,0 +1,33 @@
+<view class="chat-page">
+  <!-- 留言列表 -->
+  <scroll-view class="msg-list" scroll-y scroll-into-view="{{lastId}}">
+    <view wx:if="{{list.length === 0}}" class="empty">暂无留言，发送第一条消息吧</view>
+    <view wx:for="{{list}}" wx:key="id" id="anchor-{{item.id}}" class="msg-group">
+      <!-- 用户提问 -->
+      <view class="bubble-row user-row">
+        <view class="bubble user-bubble">{{item.chatIssue}}</view>
+        <view class="avatar user-avatar">我</view>
+      </view>
+      <!-- 客服回复 -->
+      <view wx:if="{{item.chatReply}}" class="bubble-row cs-row">
+        <view class="avatar cs-avatar">客服</view>
+        <view class="bubble cs-bubble">{{item.chatReply}}</view>
+      </view>
+      <view wx:else class="pending-tip">等待客服回复...</view>
+    </view>
+  </scroll-view>
+
+  <!-- 输入框 -->
+  <view class="input-bar">
+    <input
+      class="msg-input"
+      placeholder="请输入您的问题..."
+      value="{{inputVal}}"
+      bindinput="onInput"
+      confirm-type="send"
+      bindconfirm="onSubmit"
+      adjust-position
+    />
+    <button class="send-btn" bindtap="onSubmit" loading="{{submitting}}">发送</button>
+  </view>
+</view>

@@ -1,0 +1,25 @@
+<view class="charging-page">
+  <!-- 等待插枪 -->
+  <view wx:if="{{phase === 'waiting'}}" class="phase-view">
+    <view class="countdown-circle">
+      <text class="countdown-num">{{countdownText}}</text>
+      <text class="countdown-label">预约剩余时间</text>
+    </view>
+    <text class="phase-tip">请在倒计时结束前插枪开始充电</text>
+    <button class="btn-primary start-btn" bindtap="onStartCharge">插枪开始充电</button>
+  </view>
+
+  <!-- 充电中 -->
+  <view wx:if="{{phase === 'charging'}}" class="phase-view charging">
+    <view class="charging-anim">⚡</view>
+    <text class="charging-time">{{chargingText}}</text>
+    <text class="charging-label">充电时长</text>
+    <view class="charging-stats card">
+      <view class="stat-item">
+        <text class="stat-val">{{mockKwh}}</text>
+        <text class="stat-label">已充(kWh)</text>
+      </view>
+    </view>
+    <button class="btn-outline stop-btn" bindtap="onStopCharge">结束充电</button>
+  </view>
+</view>

@@ -1,0 +1,44 @@
+<view class="profile-page" wx:if="{{userInfo}}">
+  <!-- 用户信息头部（无头像） -->
+  <view class="user-header">
+    <view class="user-avatar-placeholder">{{avatarLetter}}</view>
+    <view class="user-info">
+      <text class="user-name">{{userInfo.yonghuName || userInfo.username}}</text>
+      <text class="user-phone">{{userInfo.yonghuPhone || '未绑定手机'}}</text>
+    </view>
+  </view>
+
+  <!-- 余额和积分 -->
+  <view class="stats-row card">
+    <view class="stat-item" bindtap="goRecharge">
+      <text class="stat-val">¥{{userInfo.newMoney || '0.00'}}</text>
+      <text class="stat-label">账户余额</text>
+    </view>
+    <view class="stat-divider"></view>
+    <view class="stat-item" bindtap="goIntegral">
+      <text class="stat-val">{{userInfo.totalIntegral || 0}}</text>
+      <text class="stat-label">我的积分</text>
+    </view>
+  </view>
+
+  <!-- 菜单 -->
+  <view class="menu-list card">
+    <view class="menu-item" bindtap="goOrders">
+      <text>📋 我的订单</text><text class="arrow">›</text>
+    </view>
+    <view class="menu-item" bindtap="goRecharge">
+      <text>💳 充值余额</text><text class="arrow">›</text>
+    </view>
+    <view class="menu-item" bindtap="goFeedback">
+      <text>🔧 故障反馈</text><text class="arrow">›</text>
+    </view>
+    <view class="menu-item" bindtap="goIntegral">
+      <text>🎁 我的积分</text><text class="arrow">›</text>
+    </view>
+    <view class="menu-item" bindtap="goChat">
+      <text>💬 联系客服</text><text class="arrow">›</text>
+    </view>
+  </view>
+
+  <button class="logout-btn" bindtap="onLogout">退出登录</button>
+</view>
