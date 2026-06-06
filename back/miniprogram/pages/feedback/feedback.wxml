@@ -6,11 +6,7 @@
 
   <!-- 提交表单 -->
   <view wx:if="{{activeTab===0}}" class="container">
-    <view wx:if="{{!isLoggedIn}}" class="login-tip card">
-      <text>请先登录后才能提交反馈</text>
-      <button class="btn-primary" bindtap="goLogin">去登录</button>
-    </view>
-    <view wx:else class="card">
+    <view class="card">
       <view class="form-row">
         <text class="form-label">充电站ID</text>
         <input placeholder="请输入充电站ID" value="{{stationId}}" bindinput="onStationInput" type="number"/>
@@ -33,28 +29,22 @@
         </view>
       </view>
     </view>
-    <view wx:if="{{isLoggedIn}}" class="tip card">审核通过后将获得 50 积分奖励 🎁</view>
-    <button wx:if="{{isLoggedIn}}" class="btn-primary" bindtap="onSubmit">提交反馈</button>
+    <view class="tip card">审核通过后将获得 50 积分奖励 🎁</view>
+    <button class="btn-primary" bindtap="onSubmit">提交反馈</button>
   </view>
 
   <!-- 我的反馈列表 -->
   <view wx:if="{{activeTab===1}}" class="container">
-    <view wx:if="{{!isLoggedIn}}" class="login-tip card">
-      <text>请先登录后才能查看反馈记录</text>
-      <button class="btn-primary" bindtap="goLogin">去登录</button>
-    </view>
-    <view wx:else>
-      <view wx:for="{{myList}}" wx:key="id" class="feedback-item card">
-        <view class="fb-header">
-          <text class="fb-name">{{item.baoxuiName}}</text>
-          <text class="tag {{item.baoxuiZhuangtaiTypes===2?'tag-free':'tag-busy'}}">
-            {{item.baoxuiZhuangtaiTypes===2?'已处理':'待处理'}}
-          </text>
-        </view>
-        <text class="fb-content">{{item.baoxuiContent}}</text>
-        <text class="fb-time">{{item.createTime}}</text>
+    <view wx:for="{{myList}}" wx:key="id" class="feedback-item card">
+      <view class="fb-header">
+        <text class="fb-name">{{item.baoxuiName}}</text>
+        <text class="tag {{item.baoxuiZhuangtaiTypes===2?'tag-free':'tag-busy'}}">
+          {{item.baoxuiZhuangtaiTypes===2?'已处理':'待处理'}}
+        </text>
       </view>
-      <view wx:if="{{myList.length===0}}" class="empty">暂无反馈记录</view>
+      <text class="fb-content">{{item.baoxuiContent}}</text>
+      <text class="fb-time">{{item.createTime}}</text>
     </view>
+    <view wx:if="{{myList.length===0}}" class="empty">暂无反馈记录</view>
   </view>
 </view>

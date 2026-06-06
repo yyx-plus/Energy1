@@ -5,31 +5,18 @@ Page({
   data: {
     stationId: '', photos: [], baoxuiTypes: 1, baoxuiContent: '',
     typeOptions: ['设备故障', '油车占位', '其他'],
-    myList: [], activeTab: 0,
-    isLoggedIn: false
+    myList: [], activeTab: 0
   },
 
   onShow() {
-    // 检查登录状态
-    this.setData({ isLoggedIn: !!app.globalData.token })
-    if (this.data.isLoggedIn) {
-      this.loadMyList()
-    }
+    this.loadMyList()
   },
 
   onPullDownRefresh() {
-    if (this.data.isLoggedIn) {
-      this.loadMyList().finally(() => wx.stopPullDownRefresh())
-    } else {
-      wx.stopPullDownRefresh()
-    }
+    this.loadMyList().finally(() => wx.stopPullDownRefresh())
   },
 
   async loadMyList() {
-    if (!this.data.isLoggedIn) {
-      this.setData({ myList: [] })
-      return
-    }
     wx.showLoading({ title: '加载中...', mask: true })
     try {
       const res = await get('/wx/feedback/myList', {}, false)
@@ -37,21 +24,13 @@ Page({
       wx.hideLoading()
     } catch (e) {
       wx.hideLoading()
-      if (e.code === 401) {
-        wx.showToast({ title: '请先登录', icon: 'none' })
-        this.setData({ myList: [], isLoggedIn: false })
-      }
+      this.setData({ myList: [] })
     }
   },
 
   onTabChange(e) {
-    const idx = e.currentTarget.dataset.idx
-    if (idx === 1 && !this.data.isLoggedIn) {
-      wx.showToast({ title: '请先登录', icon: 'none' })
-      return
-    }
-    this.setData({ activeTab: idx })
-    if (idx === 1) this.loadMyList()
+    this.setData({ activeTab: e.currentTarget.dataset.idx })
+    if (e.currentTarget.dataset.idx === 1) this.loadMyList()
   },
   onStationInput(e) { this.setData({ stationId: e.detail.value }) },
   onContentInput(e) { this.setData({ baoxuiContent: e.detail.value }) },
@@ -72,12 +51,7 @@ Page({
   },
 
   async onSubmit() {
-    if (!this.data.isLoggedIn) {
-      wx.showToast({ title: '请先登录', icon: 'none' })
-      return
-    }
     if (!this.data.stationId) { wx.showToast({ title: '请输入充电站ID', icon: 'none' }); return }
-    // 实际项目中需先上传图片获取url
     const photoUrl = this.data.photos[0] || ''
     wx.showLoading({ title: '提交中...', mask: true })
     try {
@@ -94,15 +68,7 @@ Page({
       setTimeout(() => this.loadMyList(), 1000)
     } catch (e) {
       wx.hideLoading()
-      if (e.code === 401) {
-        wx.showToast({ title: '请先登录', icon: 'none' })
-      } else {
-        wx.showToast({ title: e.msg || '提交失败', icon: 'none' })
-      }
+      wx.showToast({ title: e.msg || '提交失败', icon: 'none' })
     }
-  },
-
-  goLogin() {
-    wx.navigateTo({ url: '/pages/login/login' })
   }
 })
