@@ -199,11 +199,12 @@
                                 this.$message({
                                     message: "操作成功",
                                     type: "success",
-                                    duration: 1500,
-                                    onClose: () => {
-                                        this.back();
-                                    }
+                                    duration: 1500
                                 });
+                                // 使用 $nextTick 确保消息提示完成后再执行跳转
+                                setTimeout(() => {
+                                    this.back();
+                                }, 1500);
                             } else {
                                 this.$message.error(data.msg);
                             }
@@ -212,9 +213,13 @@
                 });
             },
             back() {
-                this.parent.showFlag = true;
-                this.parent.addOrUpdateFlag = false;
-                this.parent.getDataList();
+                // 先获取父组件引用
+                const parent = this.parent;
+                if (parent) {
+                    parent.addOrUpdateFlag = false;
+                    parent.showFlag = true;
+                    parent.getDataList();
+                }
             }
         }
     }
