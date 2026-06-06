@@ -465,5 +465,47 @@ public class ChongdianzhuangController {
         return R.ok().put("data", page);
     }
 
+    /**
+     * 批量更新充电桩录入时间为指定月份
+     * @param year 年份
+     * @param month 月份
+     */
+    @IgnoreAuth
+    @PostMapping("/batchUpdateInsertTime")
+    public R batchUpdateInsertTime(@RequestParam Integer year, @RequestParam Integer month, HttpServletRequest request) {
+        logger.info("批量更新充电桩录入时间为: {}-{:02d}", year, month);
+
+        // 查询所有充电桩
+        List<ChongdianzhuangEntity> list = chongdianzhuangService.selectList(new EntityWrapper<ChongdianzhuangEntity>());
+
+        Calendar cal = Calendar.getInstance();
+        cal.set(year, month - 1, 1, 0, 0, 0);
+        cal.set(Calendar.MILLISECOND, 0);
+
+        Random random = new Random();
+        int updated = 0;
+
+        for (int i = 0; i < list.size(); i++) {
+            ChongdianzhuangEntity entity = list.get(i);
+
+            // 随机分配日期（1-28号，避免月份末天数问题）
+            int day = random.nextInt(28) + 1;
+            int hour = random.nextInt(24);
+            int minute = random.nextInt(60);
+
+            cal.set(Calendar.DAY_OF_MONTH, day);
+            cal.set(Calendar.HOUR_OF_DAY, hour);
+            cal.set(Calendar.MINUTE, minute);
+
+            entity.setInsertTime(cal.getTime());
+
+            chongdianzhuangService.updateById(entity);
+            updated++;
+        }
+
+        logger.info("成功更新{}条充电桩的录入时间", updated);
+        return R.ok().put("data", updated);
+    }
+
 }
 
