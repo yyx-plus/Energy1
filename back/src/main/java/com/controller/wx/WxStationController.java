@@ -123,10 +123,18 @@ public class WxStationController {
 
         logger.info("查询条件: chongdianzhuangTypes={}, isFastCharge={}, isFreeParking={}, keyword={}", 
                 chongdianzhuangTypes, isFastCharge, isFreeParking, keyword);
-        logger.info("SQL: {}", wrapper.getSqlSegment());
+        logger.info("SQL条件: {}", wrapper.getSqlSegment());
 
         List<ChongdianzhuangEntity> all = chongdianzhuangService.selectList(wrapper);
         logger.info("查询到 {} 条记录", all.size());
+        
+        // 打印查询结果详情
+        for (ChongdianzhuangEntity entity : all) {
+            logger.info("充电桩ID: {}, 名称: {}, 类型: {}, 快充: {}, 免费停车: {}", 
+                    entity.getId(), entity.getChongdianzhuangName(), 
+                    entity.getChongdianzhuangTypes(), 
+                    entity.getIsFastCharge(), entity.getIsFreeParking());
+        }
 
         // 按距离过滤和排序
         List<Map<String, Object>> result = new ArrayList<>();
