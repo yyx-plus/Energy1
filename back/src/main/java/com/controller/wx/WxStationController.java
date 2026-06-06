@@ -121,7 +121,12 @@ public class WxStationController {
             wrapper.andNew().like("chongdianzhuang_name", keyword).or().like("address", keyword);
         }
 
+        logger.info("查询条件: chongdianzhuangTypes={}, isFastCharge={}, isFreeParking={}, keyword={}", 
+                chongdianzhuangTypes, isFastCharge, isFreeParking, keyword);
+        logger.info("SQL: {}", wrapper.getSqlSegment());
+
         List<ChongdianzhuangEntity> all = chongdianzhuangService.selectList(wrapper);
+        logger.info("查询到 {} 条记录", all.size());
 
         // 按距离过滤和排序
         List<Map<String, Object>> result = new ArrayList<>();

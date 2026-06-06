@@ -166,7 +166,7 @@ public class ChongdianzhuangEntity<T> implements Serializable {
      * 是否快充 0否1是
      */
     @ColumnInfo(comment="是否快充",type="tinyint(1)")
-    @TableField(value = "is_fast_charge", strategy = FieldStrategy.NOT_NULL)
+    @TableField(value = "is_fast_charge", strategy = FieldStrategy.IGNORE)
 
     private Integer isFastCharge;
 
@@ -175,7 +175,7 @@ public class ChongdianzhuangEntity<T> implements Serializable {
      * 是否免费停车 0否1是
      */
     @ColumnInfo(comment="是否免费停车",type="tinyint(1)")
-    @TableField(value = "is_free_parking", strategy = FieldStrategy.NOT_NULL)
+    @TableField(value = "is_free_parking", strategy = FieldStrategy.IGNORE)
 
     private Integer isFreeParking;
 
