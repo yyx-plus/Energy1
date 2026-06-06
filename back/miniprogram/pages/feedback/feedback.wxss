@@ -14,3 +14,11 @@
 .fb-name { font-size: 30rpx; font-weight: bold; }
 .fb-content { font-size: 26rpx; color: #666; display: block; margin-bottom: 8rpx; }
 .fb-time { font-size: 22rpx; color: #999; }
+.login-tip { text-align: center; padding: 60rpx 40rpx; }
+.login-tip text { display: block; font-size: 28rpx; color: #666; margin-bottom: 30rpx; }
+.btn-primary { background: #4CAF50; color: #fff; font-size: 28rpx; border-radius: 8rpx; margin-top: 20rpx; }
+.feedback-item { padding: 20rpx; margin-bottom: 16rpx; }
+.empty { text-align: center; color: #999; padding: 60rpx 0; font-size: 28rpx; }
+.tag { font-size: 22rpx; padding: 4rpx 12rpx; border-radius: 4rpx; }
+.tag-free { background: #e8f5e9; color: #4CAF50; }
+.tag-busy { background: #fff3e0; color: #FF9800; }

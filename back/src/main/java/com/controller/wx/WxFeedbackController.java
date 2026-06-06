@@ -1,5 +1,6 @@
 package com.controller.wx;
 
+import com.annotation.IgnoreAuth;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.entity.BaoxuiEntity;
 import com.service.BaoxuiService;
@@ -27,9 +28,13 @@ public class WxFeedbackController {
     private UserIntegralService integralService;
 
     /** 提交故障反馈 */
+    @IgnoreAuth
     @PostMapping("/submit")
     public R submit(@RequestBody BaoxuiEntity baoxui, HttpServletRequest request) {
         Integer yonghuId = (Integer) request.getSession().getAttribute("userId");
+        if (yonghuId == null) {
+            return R.error(401, "请先登录");
+        }
         baoxui.setYonghuId(yonghuId);
         baoxui.setBaoxuiZhuangtaiTypes(1); // 未维修（待审核）
         baoxui.setInsertTime(new Date());
@@ -41,9 +46,13 @@ public class WxFeedbackController {
     }
 
     /** 我的反馈列表 */
+    @IgnoreAuth
     @GetMapping("/myList")
     public R myList(HttpServletRequest request) {
         Integer yonghuId = (Integer) request.getSession().getAttribute("userId");
+        if (yonghuId == null) {
+            return R.error(401, "请先登录");
+        }
         List<BaoxuiEntity> list = baoxuiService.selectList(
                 new EntityWrapper<BaoxuiEntity>()
                         .eq("yonghu_id", yonghuId)
@@ -56,6 +65,7 @@ public class WxFeedbackController {
      * 审核通过（管理员调用）- 自动发放积分
      * 此接口由后台管理端调用
      */
+    @IgnoreAuth
     @PostMapping("/approve/{id}")
     public R approve(@PathVariable Integer id, HttpServletRequest request) {
         BaoxuiEntity baoxui = baoxuiService.selectById(id);
