@@ -12,7 +12,7 @@ function request(url, method = 'GET', data = {}, showLoading = true) {
   return new Promise((resolve, reject) => {
     if (showLoading) wx.showLoading({ title: '加载中...', mask: true })
 
-    wx.request({
+    wx.request({ //微信小程序提供的原生网络请求 API，会将数据转换为 HTTP 请求发送到后端服务器。
       url: app.globalData.baseUrl + url,
       method,
       data,
@@ -25,7 +25,7 @@ function request(url, method = 'GET', data = {}, showLoading = true) {
         const { data: resData } = res
         if (res.statusCode === 200) {
           if (resData.code === 0 || resData.code === undefined) {
-            resolve(resData)
+            resolve(resData) //返回给调用方
           } else if (resData.code === 401) {
             wx.showToast({ title: '请先登录', icon: 'none' })
             app.logout()
@@ -47,7 +47,7 @@ function request(url, method = 'GET', data = {}, showLoading = true) {
     })
   })
 }
-
+//15行
 const get = (url, data, showLoading) => request(url, 'GET', data, showLoading)
 const post = (url, data, showLoading) => request(url, 'POST', data, showLoading)
 const put = (url, data, showLoading) => request(url, 'PUT', data, showLoading)

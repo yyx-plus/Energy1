@@ -7,18 +7,19 @@ Page({
     longitude: 121.473701,
     markers: [],
     stations: [],
-    filters: { chongdianzhuangTypes: null, isFreeParking: null, isFastCharge: null, keyword: '' },
+    filters: { chongdianzhuangTypes: null, isFreeParking: null, isFastCharge: null, keyword: '' }, //筛选条件
     stationTypes: [], // 充电桩类型字典
     selectedStation: null,
     showDetail: false,
     scale: 13
   },
 
+  //界面加载时获取类型字典，生命周期钩子函数，界面加载自动执行（only）
   onLoad() {
     // 从全局字典加载充电桩类型
     const app = getApp()
-    const stationTypes = app.globalData.stationTypes
-    if (stationTypes && stationTypes.length > 0) {
+    const stationTypes = app.globalData.stationTypes //读取数据
+    if (stationTypes && stationTypes.length > 0) { //异步处理
       this.setData({ stationTypes })
     } else {
       // 字典还未加载完，稍等后重试
@@ -75,7 +76,7 @@ Page({
       this.setData({ markers })
     } catch (e) {}
   },
-
+  //查询功能
   async loadNearbyList() {
     const { latitude, longitude, filters } = this.data
     // 过滤掉 null 和空字符串，避免后端400
@@ -87,10 +88,11 @@ Page({
     if (filters.keyword != null && filters.keyword.trim() !== '') {
       params.keyword = filters.keyword.trim()
     }
+    //发送请求
     wx.showLoading({ title: '搜索中...', mask: true })
     try {
-      const res = await get('/wx/station/list', params, false)
-      this.setData({ stations: (res.data && res.data.list) || [] })
+      const res = await get('/wx/station/list', params, false)  //封装好的get方法
+      this.setData({ stations: (res.data && res.data.list) || [] }) //接受后端返回来的数据
       wx.hideLoading()
       if (this.data.stations.length === 0) {
         wx.showToast({ title: '未找到匹配的充电桩', icon: 'none' })
@@ -105,15 +107,15 @@ Page({
     const station = this.data.stations.find(s => s.id === e.markerId)
     if (station) this.setData({ selectedStation: station, showDetail: true })
   },
-
+  //用户筛选标签
   onFilterChange(e) {
-    const { key, val } = e.currentTarget.dataset
+    const { key, val } = e.currentTarget.dataset  // key="chongdianzhuangTypes", val="3"
     const current = this.data.filters[key]
-    const intVal = parseInt(val)
+    const intVal = parseInt(val)           // 字符串"3" → 整数3
     // 再次点击同一个标签则取消
     const filters = { ...this.data.filters, [key]: current === intVal ? null : intVal }
     this.setData({ filters })
-    this.loadNearbyList()
+    this.loadNearbyList()  //触发查询
     this.loadMapData()
   },
 

@@ -97,9 +97,12 @@ public class WxStationController {
      * @param isFreeParking 是否免费停车 0/1
      * @param keyword   关键词搜索
      */
-    @IgnoreAuth
+    //@RequestParam(required = false) 表示参数可选，小程序没传则值为 null。
+    //@IgnoreAuth 注解（定义在 com.annotation.IgnoreAuth）让拦截器放行此接口，不用登录。
+    @IgnoreAuth //nologin
     @GetMapping("/list")
-    public R nearbyList(
+    public R nearbyList(  //total response object
+            //获取请求参数
             @RequestParam(required = false) Double longitude,
             @RequestParam(required = false) Double latitude,
             @RequestParam(defaultValue = "5") Double radius,
@@ -109,11 +112,9 @@ public class WxStationController {
             @RequestParam(required = false) String keyword,
             @RequestParam(defaultValue = "1") Integer page,
             @RequestParam(defaultValue = "20") Integer limit) {
-
-        EntityWrapper<ChongdianzhuangEntity> wrapper = new EntityWrapper<>();
-        wrapper.eq("shangxia_types", 1);
-        wrapper.eq("chongdianzhuang_delete", 1);
-
+        EntityWrapper<ChongdianzhuangEntity> wrapper = new EntityWrapper<>(); //构建查询条件
+        wrapper.eq("shangxia_types", 1); //only select up
+        wrapper.eq("chongdianzhuang_delete", 1); // only select no delete
         if (chongdianzhuangTypes != null) wrapper.eq("chongdianzhuang_types", chongdianzhuangTypes);
         if (isFastCharge != null && isFastCharge == 1) wrapper.eq("is_fast_charge", 1);
         if (isFreeParking != null && isFreeParking == 1) wrapper.eq("is_free_parking", 1);
@@ -124,10 +125,9 @@ public class WxStationController {
         logger.info("查询条件: chongdianzhuangTypes={}, isFastCharge={}, isFreeParking={}, keyword={}", 
                 chongdianzhuangTypes, isFastCharge, isFreeParking, keyword);
         logger.info("SQL条件: {}", wrapper.getSqlSegment());
-
+        //调用service，selectList Mybatis-plus自带，无需xml
         List<ChongdianzhuangEntity> all = chongdianzhuangService.selectList(wrapper);
         logger.info("查询到 {} 条记录", all.size());
-        
         // 打印查询结果详情
         for (ChongdianzhuangEntity entity : all) {
             logger.info("充电桩ID: {}, 名称: {}, 类型: {}, 快充: {}, 免费停车: {}", 
@@ -135,16 +135,14 @@ public class WxStationController {
                     entity.getChongdianzhuangTypes(), 
                     entity.getIsFastCharge(), entity.getIsFreeParking());
         }
-
         // 按距离过滤和排序
         List<Map<String, Object>> result = new ArrayList<>();
         for (ChongdianzhuangEntity s : all) {
             if (s.getLongitude() == null || s.getLatitude() == null) continue;
-            double dist = (longitude != null && latitude != null)
+            double dist = (longitude != null && latitude != null) // computer distance with user
                     ? calcDistance(latitude, longitude, s.getLatitude(), s.getLongitude())
                     : 0;
-            if (longitude != null && latitude != null && dist > radius) continue;
-
+            if (longitude != null && latitude != null && dist > radius) continue; //over banjing continue
             Map<String, Object> item = buildStationItem(s, dist);
             result.add(item);
         }
@@ -158,7 +156,7 @@ public class WxStationController {
         int start = (page - 1) * limit;
         int end = Math.min(start + limit, result.size());
         List<Map<String, Object>> pageData = start < result.size() ? result.subList(start, end) : new ArrayList<>();
-
+        //包装返回
         Map<String, Object> resp = new HashMap<>();
         resp.put("list", pageData);
         resp.put("total", result.size());
