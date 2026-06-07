@@ -17,7 +17,7 @@ import java.util.*;
 /**
  * 小程序 - 路径补能规划
  */
-@RestController
+@RestController  //rest控制器，返回值自动转json
 @RequestMapping("/wx/route")
 public class WxRoutePlanController {
 

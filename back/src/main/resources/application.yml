@@ -66,7 +66,8 @@ mybatis-plus:
         max-wait: -1ms
         max-idle: 8
         min-idle: 0
-
+#日志级别配置
+#所有 DAO 层的 SQL 语句都会打印到控制台——每执行一条 SQL，MyBatis 会输出完整的 SQL 语句和参数
 #打印sql语句
 logging:
   level:

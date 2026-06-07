@@ -43,7 +43,8 @@ public class DictionaryServletContextListener implements ServletContextListener 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
         ApplicationContext appContext = WebApplicationContextUtils.getWebApplicationContext(sce.getServletContext());
-
+//打印 '字典表初始化开始'，然后从数据库加载所有字典数据（充电桩类型、状态、订单类型等），
+//放入 ServletContext 全局缓存中（第59行），打印 '字典表初始化完成'。
         logger.info("----------字典表初始化开始----------");
         DictionaryService dictionaryService = (DictionaryService)appContext.getBean("dictionaryService");
         List<DictionaryEntity> dictionaryEntities = dictionaryService.selectList(new EntityWrapper<DictionaryEntity>());

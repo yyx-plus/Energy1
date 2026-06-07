@@ -40,10 +40,6 @@ import huanyuan from '@/views/modules/databaseBackup/huanyuan'
     import dictionaryZhuangtai from '@/views/modules/dictionaryZhuangtai/list'
     import chargingGun from '@/views/modules/chargingGun/list'
 
-
-
-
-
 //2.配置路由   注意：名字
 const routes = [{
     path: '/index',

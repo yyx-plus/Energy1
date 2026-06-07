@@ -86,7 +86,7 @@
                 </el-table>
             </div>
         </div>
-        <add-or-update v-if="addOrUpdateFlag" :parent="this" ref="addOrUpdate"></add-or-update>
+        <add-or-update v-if="addOrUpdateFlag" :parent="this" ref="addOrUpdate" @close="closeAddOrUpdate"></add-or-update>
     </div>
 </template>
 
@@ -325,6 +325,11 @@
             },
             cellStyle({row, rowIndex}) {
                 return {};
+            },
+            closeAddOrUpdate() {
+                this.addOrUpdateFlag = false;
+                this.showFlag = true;
+                this.getDataList();
             }
         }
     }

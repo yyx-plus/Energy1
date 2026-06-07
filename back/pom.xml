@@ -23,6 +23,7 @@
 
     <dependencies>
         <dependency>
+<!--            提供 REST 接口和内置 Tomcat-->
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
@@ -61,6 +62,7 @@
         </dependency>
 
         <dependency>
+<!--            负责数据库操作提供了 BaseMapper 和 ServiceImpl，不用手写基础的增删改查 SQL，通过 EntityWrapper 就能拼条件查询-->
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus</artifactId>
             <version>2.3</version>
@@ -103,6 +105,7 @@
 
         <!-- FastJson -->
         <dependency>
+<!--            做 JSON 的序列化和反序列化，Controller 返回给前端的数据就是用它转成 JSON 字符串-->
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
             <version>${fastjson.version}</version>

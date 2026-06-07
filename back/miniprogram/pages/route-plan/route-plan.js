@@ -4,8 +4,8 @@ Page({
   data: {
     startLat: 31.230416, startLng: 121.473701,
     endLat: '', endLng: '', endName: '',
-    remainRange: 100,
-    result: null, loading: false
+    remainRange: 100, //当前续航
+    result: null, loading: false //规划结果，加载状态
   },
 
   onLoad() {
@@ -64,12 +64,12 @@ Page({
     }
     this.setData({ loading: true })
     try {
-      const res = await post('/wx/route/plan', {
+      const res = await post('/wx/route/plan', { //发送post请求
         startLat: this.data.startLat, startLng: this.data.startLng,
         endLat: this.data.endLat, endLng: this.data.endLng,
         remainRange: this.data.remainRange
       })
-      this.setData({ result: res.data })
+      this.setData({ result: res.data }) //结果
       if (res.data.stations && res.data.stations.length === 0) {
         wx.showToast({ title: '续航范围内暂无合适充电站', icon: 'none' })
       }
@@ -80,7 +80,7 @@ Page({
       this.setData({ loading: false })
     }
   },
-
+  //推荐站点-跳转到详情页
   goStation(e) {
     wx.navigateTo({ url: `/pages/station-detail/station-detail?id=${e.currentTarget.dataset.id}` })
   }

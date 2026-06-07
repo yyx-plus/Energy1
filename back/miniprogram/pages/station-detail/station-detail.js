@@ -24,7 +24,7 @@ Page({
   onUnload() {
     if (this.data.refreshTimer) clearInterval(this.data.refreshTimer)
   },
-
+  //充电桩详情
   async loadDetail() {
     try {
       const res = await get(`/wx/station/${this.data.id}`, {}, false)
