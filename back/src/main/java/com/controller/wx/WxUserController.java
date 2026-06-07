@@ -29,8 +29,13 @@ public class WxUserController {
     @GetMapping("/info")
     public R info(HttpServletRequest request) {
         Integer yonghuId = (Integer) request.getSession().getAttribute("userId");
+        if (yonghuId == null) {
+            return R.error(401, "请先登录");
+        }
         YonghuEntity yonghu = yonghuService.selectById(yonghuId);
-        if (yonghu == null) return R.error(404, "用户不存在");
+        if (yonghu == null) {
+            return R.error(404, "用户不存在，请重新登录");
+        }
         yonghu.setPassword(null); // 不返回密码
         return R.ok().put("data", yonghu);
     }
@@ -39,6 +44,9 @@ public class WxUserController {
     @PutMapping("/update")
     public R update(@RequestBody YonghuEntity yonghu, HttpServletRequest request) {
         Integer yonghuId = (Integer) request.getSession().getAttribute("userId");
+        if (yonghuId == null) {
+            return R.error(401, "请先登录");
+        }
         yonghu.setId(yonghuId);
         yonghu.setPassword(null); // 不允许通过此接口改密码
         yonghu.setNewMoney(null); // 不允许直接改余额
@@ -50,6 +58,9 @@ public class WxUserController {
     @GetMapping("/integral")
     public R integral(HttpServletRequest request) {
         Integer yonghuId = (Integer) request.getSession().getAttribute("userId");
+        if (yonghuId == null) {
+            return R.error(401, "请先登录");
+        }
         List<UserIntegralEntity> list = integralService.getByYonghuId(yonghuId);
         YonghuEntity yonghu = yonghuService.selectById(yonghuId);
         Map<String, Object> integralData = new HashMap<>();
@@ -62,11 +73,14 @@ public class WxUserController {
     @PostMapping("/recharge")
     public R recharge(@RequestBody Map<String, Object> params, HttpServletRequest request) {
         Integer yonghuId = (Integer) request.getSession().getAttribute("userId");
+        if (yonghuId == null) {
+            return R.error(401, "请先登录");
+        }
         Double amount = Double.valueOf(String.valueOf(params.get("amount")));
         if (amount <= 0 || amount > 10000) return R.error(400, "充值金额不合法");
 
         YonghuEntity yonghu = yonghuService.selectById(yonghuId);
-        if (yonghu == null) return R.error(404, "用户不存在");
+        if (yonghu == null) return R.error(404, "用户不存在，请重新登录");
         double current = yonghu.getNewMoney() != null ? yonghu.getNewMoney() : 0;
         yonghu.setNewMoney(Math.round((current + amount) * 100.0) / 100.0);
         yonghuService.updateById(yonghu);

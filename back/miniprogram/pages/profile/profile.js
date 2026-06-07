@@ -22,7 +22,13 @@ Page({
       const u = res.data
       const letter = (u.yonghuName || u.username || '用').charAt(0)
       this.setData({ userInfo: u, avatarLetter: letter })
-    } catch (e) {}
+    } catch (e) {
+      // 401错误会自动跳转登录页（request.js已处理）
+      if (e.code === 404) {
+        wx.showToast({ title: '用户不存在，请重新登录', icon: 'none' })
+        setTimeout(() => app.logout(), 1500)
+      }
+    }
   },
 
   goOrders() { wx.navigateTo({ url: '/pages/order-list/order-list' }) },
